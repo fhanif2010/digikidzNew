@@ -25,7 +25,7 @@ const Stack = createStackNavigator();
 function Navigation() {
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Task2">
 
         <Stack.Screen name="Login" component={Login}
           options={{ headerShown: false }} />
