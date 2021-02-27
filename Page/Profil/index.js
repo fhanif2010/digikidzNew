@@ -14,11 +14,16 @@ import { useSelector, useDispatch } from 'react-redux';
 
 
 const Profil = () =>{
+    
     const name = useSelector(state => state.AuthReducer.name);
     const address = useSelector(state => state.AuthReducer.address);
     const email = useSelector(state => state.AuthReducer.email);
     const numberPhone = useSelector(state => state.AuthReducer.number);
     const dob = useSelector(state => state.AuthReducer.dob);
+
+
+
+
     onHome = () => {
         this.props.navigation.navigate('Home')
     }

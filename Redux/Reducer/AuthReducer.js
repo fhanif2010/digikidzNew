@@ -7,7 +7,7 @@ const initialState ={
     number:"",
     email:"",
     uid:"",
-    dob:""
+    dob:"",
     }
 
 }

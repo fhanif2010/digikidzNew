@@ -21,25 +21,38 @@ import { useSelector, useDispatch } from 'react-redux';
 const Task2 = (props) => {
 
 
-  
+
     const name = useSelector(state => state.AuthReducer.name);
+    const uid = useSelector(state => state.AuthReducer.uid);
     const time = new Date();
+    const timeNow = time.toDateString();
     const id = time.getTime();
     const [state, setState] = useState({
-        name: "", program: "", level: "", status: "", time1: "", time2: "", note: "",id:id
+        name: "", program: "", level: "", status: "", time1: "", time2: "", note: "", id: id,time: timeNow
     })
 
-    const onSave = async () =>{
-      const timeNow =  time.toDateString();
+    const onSave = async () => {
+      
+alert(uid)
+        db.database().ref('task')
+            .child(`${timeNow}`)
+            .child(`${name}`)
+            .child(`${id}`)
+            .set(state)
+            .catch((error) => {
+                alert(error)
+            })
 
-      db.database().ref('task')
-      .child(`${timeNow}`)
-      .child(`${name}`)
-      .child(`${id}`)
-      .set(state)
-      .catch((error)=>{
-          alert(error)
-      })
+            // .then(()=>{
+            //     db.database().ref('history')
+            //     .child(`${uid}`)
+            //     .child(`${id}`)
+            //     .set(state)
+            //     .catch((error) => {
+            //         alert(error)
+            //     })
+            // })
+           
 
     }
 
@@ -54,25 +67,24 @@ const Task2 = (props) => {
             <KeyboardAvoidingView behavior="height">
 
                 <View>
-                    <View style={{ width: "100%", height: 150 }}>
+                    <View style={{ width: "100%", height: "15%" }}>
                         <View style={{ paddingTop: "10%", alignItems: "center" }}>
                             <Text style={{ fontSize: 35, color: "white" }}>TASK</Text>
                         </View>
                     </View>
                 </View>
+
                 <ScrollView>
-
-                    <View style={{ backgroundColor: "white", borderTopStartRadius: 40, borderTopEndRadius: 40 }}>
-                        <View style={{ marginTop: 40, marginHorizontal: 20, height: 800 }}>
-
-                            <View>
+                    <View style={{ backgroundColor: "white", borderTopStartRadius: 20, borderTopEndRadius: 20 }}>
+                        <View style={{ marginTop: 20, marginHorizontal: "5%", height: 745 }}>
+                            <View style={{ marginBottom: "2%"}}>
                                 <Text style={{ fontSize: 20, color: "orange" }}>Name</Text>
                                 <TextInput
                                     style={{ borderRadius: 15, borderWidth: 1, height: 36, borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
                                     onChangeText={(text) => setState({ ...state, name: text })}
                                 />
                             </View>
-                            <View>
+                            <View style={{ marginBottom: "2%"}}>
                                 <Text style={{ fontSize: 20, color: "orange" }}>Program</Text>
                                 <TextInput
                                     style={{ borderRadius: 15, borderWidth: 1, height: 36, borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
@@ -80,7 +92,7 @@ const Task2 = (props) => {
 
                                 />
                             </View>
-                            <View>
+                            <View style={{ marginBottom: "2%"}}>
                                 <Text style={{ fontSize: 20, color: "orange" }}>Level</Text>
                                 <TextInput
                                     style={{ borderRadius: 15, borderWidth: 1, height: 36, borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
@@ -88,21 +100,21 @@ const Task2 = (props) => {
 
                                 />
                             </View>
-                            <View>
+                            <View style={{ marginBottom: "2%"}}>
                                 <Text style={{ fontSize: 20, color: "orange" }}>Status</Text>
                                 <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 36, borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
                                     onChangeText={(text) => setState({ ...state, status: text })}
-                                    
+
                                 />
                             </View>
-                            <View>
+                            <View style={{ marginBottom: "2%"}}>
                                 <Text style={{ fontSize: 20, color: "orange" }}>Time</Text>
                                 <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                                    <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 36, width: 160, borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }} 
-                                     onChangeText={(text) => setState({ ...state, time1: text })}v
+                                    <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 36, width: "47%", borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
+                                        onChangeText={(text) => setState({ ...state, time1: text })} v
                                     />
-                                    <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 36, width: 160, borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
-                                     onChangeText={(text) => setState({ ...state, time2: text })}
+                                    <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 36, width: "47%", borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
+                                        onChangeText={(text) => setState({ ...state, time2: text })}
                                     />
                                 </View>
 
@@ -110,8 +122,8 @@ const Task2 = (props) => {
                             <View>
                                 <Text style={{ fontSize: 20, color: "orange" }}>note</Text>
                                 <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 150, borderColor: "gray", justifyContent: "flex-end", backgroundColor: "#dddddd" }}
-                                 onChangeText={(text) => setState({ ...state, note: text })}
-                                /> 
+                                    onChangeText={(text) => setState({ ...state, note: text })}
+                                />
                             </View>
 
                             <View style={{ flexDirection: "row", justifyContent: "space-around", marginTop: 30 }}>
@@ -130,7 +142,6 @@ const Task2 = (props) => {
                         </View>
                     </View>
                 </ScrollView>
-
             </KeyboardAvoidingView>
         </View >
     )

@@ -1,5 +1,6 @@
 import React from "react";
 import Home from "../Page/Home/index";
+import Loader from "../Page/Loader/index";
 import Login from "../Page/Login/index";
 import Profil from "../Page/Profil/index";
 
@@ -25,7 +26,10 @@ const Stack = createStackNavigator();
 function Navigation() {
   return (
     <NavigationContainer >
-      <Stack.Navigator initialRouteName="Task2">
+      <Stack.Navigator initialRouteName="Loader">
+
+      <Stack.Screen name="Loader" component={Loader}
+          options={{ headerShown: false }} />
 
         <Stack.Screen name="Login" component={Login}
           options={{ headerShown: false }} />

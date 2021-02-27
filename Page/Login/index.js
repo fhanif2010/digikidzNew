@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import "@firebase/firestore";
 import db from "../../Config/index";
 import {
@@ -10,106 +10,108 @@ import {
     KeyboardAvoidingView,
 
 } from "react-native";
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
     faUserCircle,
     faKey,
 
 } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch,useSelector } from 'react-redux';
+import { roundToNearestPixel } from "react-native/Libraries/Utilities/PixelRatio";
+
 
 const Login = (props) => {
 
+    const auth = useSelector(state => state.AuthReducer.auth);
 
-const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const [state,setState] = useState({username:'',password:''})
 
 
-    onLogin = async () => {
-
+    _onLogin = async () => {
 
         db.auth()
-            .signInWithEmailAndPassword('fhanif665@gmail.com', '123456'.toLowerCase())
-            .then( async (data) => {
+            .signInWithEmailAndPassword(state.username, state.password.toLowerCase())
+            .then(async (data) => {
 
+                db.firestore()
+                    .collection('User_data')
+                    .doc(`${data.user.uid}`)
+                    .onSnapshot(async (docs,) => {
+                        
+                        await dispatch({
+                            type: "LOGIN",
+                            name: docs.data().name,
+                            address: docs.data().address,
+                            number: docs.data().telephone,
+                            email: docs.data().email,
+                            uid: data.user.uid,
+                            dob: docs.data().DoB,
+                        })
 
-          await db.firestore()
-            .collection('User_data')
-            .doc(`${data.user.uid}`)
-            .onSnapshot(async (ctx)=>{
-               
+                        if (docs.data().status === "v2") {
+                            props.navigation.navigate("Home")
+                        }
+                        else if (docs.data().status === "v1") {
+                            props.navigation.navigate("HomeAdmin")
+                        }
+                    })
 
-                await dispatch({type:"LOGIN",
-                name:ctx.data().name,
-                address:ctx.data().address,
-                email:ctx.data().email,
-                number:ctx.data().telephone,
-                dob:ctx.data().DoB,
-                uid:data.user.uid,
-              })
-
-              if(ctx.data().status === "v2"){
-                  props.navigation.navigate("Home")
-              }
-              else if(ctx.data().status === "v1"){
-                  props.navigation.navigate("AdminProfil")
-              }
-
-            console.log(ctx.data().status)
-             
             })
-         
-         })
+            .catch((error) => {
+                alert(error)
+            })
     }
 
-    
 
-        return (
-            <View style={styles.container}>
-                <KeyboardAvoidingView>
-                    <View style={{ backgroundColor: "orange", borderBottomRightRadius: 100, borderBottomLeftRadius: 100 }}>
-                        <View style={{ justifyContent: "center", alignItems: "center", marginBottom: -200 }}>
-                            <Image source={require("../../Asset/Image/Logo.png")} style={{ width: "50%", height: "50%", }} />
-                        </View>
+
+    return (
+        <View style={styles.container}>
+            <KeyboardAvoidingView>
+                <View style={{ backgroundColor: "orange", borderBottomRightRadius: 100, borderBottomLeftRadius: 100 }}>
+                    <View style={{ justifyContent: "center", alignItems: "center", marginBottom: -200 }}>
+                        <Image source={require("../../Asset/Image/Logo.png")} style={{ width: "50%", height: "50%", }} />
                     </View>
+                </View>
 
-                    {/*USERNAME - PASSWORD*/}
-                    <View style={{ marginHorizontal: 30, marginTop: 70, }}>
-                        <View>
-                            <Text style={styles.container.text}>USERNAME</Text>
-                            <View style={{ flexDirection: 'row', marginTop: 15, }}>
-                                <FontAwesomeIcon icon={faUserCircle} size={29} style={{ marginRight: 15 }} />
-                                <View style={{ marginTop: -8 }}>
-                                    <TextInput placeholder="Your Username"
-                                        style={styles.container.textInput}
-                                        onChangeText={(value) => { this.setState({ username: value }) }} />
-                                </View>
+                {/*USERNAME - PASSWORD*/}
+                <View style={{ marginHorizontal: 30, marginTop: 70, }}>
+                    <View>
+                        <Text style={styles.container.text}>USERNAME</Text>
+                        <View style={{ flexDirection: 'row', marginTop: 15, }}>
+                            <FontAwesomeIcon icon={faUserCircle} size={29} style={{ marginRight: 15 }} />
+                            <View style={{ marginTop: -8 }}>
+                                <TextInput placeholder="Your Username"
+                                    style={styles.container.textInput}
+                                    onChangeText={(value) => { setState({...state,username:value}) }} />
                             </View>
-
-
                         </View>
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={styles.container.text}>Password</Text>
-                            <View style={{ flexDirection: 'row', marginTop: 15, }}>
-                                <FontAwesomeIcon icon={faKey} size={25} style={{ marginRight: 15 }} />
-                                <View style={{ marginTop: -8 }}>
-                                    <TextInput placeholder="Your Password" secureTextEntry={true}
-                                        style={styles.container.textInput}
-                                        onChangeText={(value) => { this.setState({ password: value }) }} />
-                                </View>
+
+
+                    </View>
+                    <View style={{ marginTop: 10 }}>
+                        <Text style={styles.container.text}>Password</Text>
+                        <View style={{ flexDirection: 'row', marginTop: 15, }}>
+                            <FontAwesomeIcon icon={faKey} size={25} style={{ marginRight: 15 }} />
+                            <View style={{ marginTop: -8 }}>
+                                <TextInput placeholder="Your Password" secureTextEntry={true}
+                                    style={styles.container.textInput}
+                                    onChangeText={(value) => {setState({...state,password:value}) }} />
                             </View>
-
-
                         </View>
 
-                    </View>
-                    <View style={{ marginHorizontal: 130, marginTop: 50, width: 100, justifyContent: "center" }}>
-                        <Button title="submit" onPress={() => { this.onLogin() }} />
-                    </View>
-                </KeyboardAvoidingView>
-            </View>
-        )
-    }
 
+                    </View>
+
+                </View>
+                <View style={{ marginHorizontal: 130, marginTop: 50, width: 100, justifyContent: "center" }}>
+                    <Button title="submit" onPress={() => _onLogin()} />
+                </View>
+            </KeyboardAvoidingView>
+        </View>
+    )
+
+}
 export default Login;
 
 const styles = {

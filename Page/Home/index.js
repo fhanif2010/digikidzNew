@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text,TouchableOpacity } from "react-native";
+import { View, Text,TouchableOpacity,Button,BackHandler } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
     faUser,
@@ -8,9 +8,18 @@ import {
     faStreetView,
     faHistory,
 } from '@fortawesome/free-solid-svg-icons';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const  Home = (props)=> {
 
+
+    const dispatch = useDispatch();
+
+    const onLogout = async () =>{
+        await dispatch({type:'LOGOUT'});
+        BackHandler.exitApp();
+    }
    const onProfil = () => {
         props.navigation.navigate('Profil')
     }
@@ -79,6 +88,7 @@ const  Home = (props)=> {
                             </View>
                         </TouchableOpacity>
                     </View>
+                    <Button onPress={onLogout} title="logout" ></Button>
 
                     <View style={{ marginHorizontal: "10%", marginTop: "5%", alignItems: "center" }}>
                         <TouchableOpacity style={{ width: 285, height: 110, borderWidth: 1, borderRadius: 8 }}>
