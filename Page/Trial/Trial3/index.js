@@ -7,22 +7,24 @@ import {
     Image,
     KeyboardAvoidingView,
     ScrollView,
+    TouchableOpacity
 } from "react-native";
 
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList,  } from "react-native-gesture-handler";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
     faArrowAltCircleLeft,
     faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-class Trial3 extends React.Component {
+
+const Trial3 = (props) => {
     onTrial = () => {
         this.props.navigation.navigate('Trial')
     }
     onTrial2 = () => {
         this.props.navigation.navigate('Trial2')
     }
-    render() {
+    {
         return (
             <View style={{ flex: 1, backgroundColor: "orange" }}>
             <KeyboardAvoidingView behavior="height">
@@ -35,9 +37,10 @@ class Trial3 extends React.Component {
                     </View>
                 </View>
 
-                <View style={{ backgroundColor: "white", borderTopStartRadius: 40, borderTopEndRadius: 40 }}>
-                    <ScrollView>
-                        <View style={{ marginTop: 40, marginHorizontal: 20, height: 800 }}>
+                <ScrollView>
+                <View style={{ backgroundColor: "white", borderTopStartRadius: 40, borderTopEndRadius: 40, height: 800 }}>
+                    
+                        <View style={{ marginTop: 40, marginHorizontal: 20,  }}>
 
                             <View>
                                 <Text style={{ fontSize: 20, color: "orange" }}>Name</Text>
@@ -65,22 +68,22 @@ class Trial3 extends React.Component {
                             </View>
 
                             <View style={{ flexDirection: "row", justifyContent: "space-around", marginTop: 30}}>
-                                    <TouchableOpacity style={{ width: 120, height: 45, borderRadius: 25, backgroundColor: "#a55eea" }} onPress={() => { this.onTrial2() }}>
+                                    <TouchableOpacity style={{ width: 120, height: 45, borderRadius: 25, backgroundColor: "#a55eea" }} onPress={() => { onTrial2() }}>
                                         <View style={{ alignItems: "center", marginVertical: 11 }}>
                                             <Text style={{ color: "white" }}>Delete</Text>
                                         </View>
                                     </TouchableOpacity>
 
-                                    <TouchableOpacity style={{ width: 120, height: 45, borderRadius: 25, backgroundColor: "#a55eea" }} onPress={() => { this.onTrial() }}>
+                                    <TouchableOpacity style={{ width: 120, height: 45, borderRadius: 25, backgroundColor: "#a55eea" }} onPress={() => { onTrial() }}>
                                         <View style={{ alignItems: "center", marginVertical: 11 }}>
                                             <Text style={{ color: "white" }}>Upload</Text>
                                         </View>
                                     </TouchableOpacity>
                             </View>
                         </View>
-                    </ScrollView>
+                    
                 </View>
-
+                </ScrollView>
             </KeyboardAvoidingView>
         </View >
         )

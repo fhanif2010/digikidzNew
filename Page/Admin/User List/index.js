@@ -1,12 +1,12 @@
 import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import {
     View,
     Text,
     TextInput,
     Button,
     Image,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    TouchableOpacity
 } from "react-native";
 import {
     faArrowAltCircleLeft,
@@ -15,21 +15,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-class UserList extends React.Component {
-    constructor(props) {
-        super(props);
-
-    };
-
+const UserList = (props) => {
     onAdminProfil = () => {
-        this.props.navigation.navigate('AdminProfil')
+        props.navigation.navigate('AdminProfil')
     }
-
     onHome = () => {
-        this.props.navigation.navigate('Home')
+        props.navigation.navigate('Home')
     }
-
-    render() {
+    {
         return (
             <View style={ styles.container}>
                 <KeyboardAvoidingView behavior="height">
@@ -37,7 +30,7 @@ class UserList extends React.Component {
                         <View style={ styles.header.Logo }>
                             <Text style={ styles.header.Logo.Text }>Karyawan</Text>
                         </View>
-                        <TouchableOpacity style={ styles.header.btn}  onPress={() => { this.onHome() }}>
+                        <TouchableOpacity style={ styles.header.btn}  onPress={() => { onHome() }}>
                             <View style={ styles.header.btn.Text }>
                                 <View>
                                     <FontAwesomeIcon icon={faPlus} size={20} color="white" />
@@ -50,14 +43,14 @@ class UserList extends React.Component {
                     </View>
 
                     <View style={ styles.form}>
-                        <TouchableOpacity onPress={() => { this.onAdminProfil()  }} >
+                        <TouchableOpacity onPress={() => { onAdminProfil()  }} >
                             <View style={ styles.form.Textarea }>
                                 <Text style={ styles.form.Textarea.Text}> NurFaizin</Text>
                                 <Text style={ styles.form.Textarea.Text}> Teacher</Text>
                             </View>
                         </TouchableOpacity>
 
-                        <TouchableOpacity onPress={() => { this.onAdminProfil()  }}>
+                        <TouchableOpacity onPress={() => { onAdminProfil()  }}>
                             <View style={ styles.form.Textarea }>
                                 <Text style={ styles.form.Textarea.Text}> Faisal Hanif</Text>
                                 <Text style={ styles.form.Textarea.Text}> Admin</Text>
@@ -71,8 +64,6 @@ class UserList extends React.Component {
         )
     }
 }
-
-
 export default UserList;
 
 const styles= {

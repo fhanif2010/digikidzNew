@@ -4,21 +4,18 @@ import {
     Text,
     TextInput,
     Button,
-    Image
+    Image,
+    KeyboardAvoidingView,
+    TouchableOpacity
 } from "react-native";
 import { faEdit, faBackward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-class AdminProfil extends React.Component {
-    constructor(props) {
-        super(props);
-
-    };
-
+const AdminProfil = (props) => {
     onEditProfil = () => {
-        this.props.navigation.navigate('EditProfil')
+        props.navigation.navigate('EditProfil')
     }
-    render() {
+    {
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ width: "100%", height: 150, backgroundColor: "orange", borderBottomRightRadius: 50, borderBottomLeftRadius: 50, alignItems: "center"}}>
@@ -26,7 +23,7 @@ class AdminProfil extends React.Component {
                         <Text style={{ fontSize: 35, color: "white" }}>FAISAL HANIF</Text>
                         <Text style={{ fontSize: 15, color: "white" }}>TEACHER</Text>
                     </View>
-                    <TouchableOpacity style={{ width: 200, height: 45, borderRadius: 25, marginTop: 25, marginHorizontal: "20%", backgroundColor: "#a55eea" }} onPress={() => { this.onEditProfil() }}>
+                    <TouchableOpacity style={{ width: 200, height: 45, borderRadius: 25, marginTop: 25, marginHorizontal: "20%", backgroundColor: "#a55eea" }} onPress={() => { onEditProfil() }}>
                         <View style={{ alignItems: "center", justifyContent: "space-around", marginHorizontal: "15%", flexDirection: "row", marginTop: "3%" }}>
                             <View>
                                 <FontAwesomeIcon icon={faEdit} size={30} color="white" />

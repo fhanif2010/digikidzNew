@@ -9,7 +9,7 @@ const  Loader = (props) =>{
 
 
     const auth = useSelector(state => state.AuthReducer.auth);
-
+    
 
     useEffect(()=>{
 

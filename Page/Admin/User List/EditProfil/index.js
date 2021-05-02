@@ -4,21 +4,18 @@ import {
     Text,
     TextInput,
     Button,
-    Image
+    Image,
+    KeyboardAvoidingView,
+    TouchableOpacity
 } from "react-native";
 import { faEdit, faBackward } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 
-class EditProfil extends React.Component {
-    constructor(props) {
-        super(props);
-
-    };
-
+const EditProfil = (props) => {
     onAdminProfil = () => {
-        this.props.navigation.navigate('AdminProfil')
+        props.navigation.navigate('AdminProfil')
     }
-    render() {
+    {
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ width: "100%", height: 150, backgroundColor: "orange", borderBottomRightRadius: 50, borderBottomLeftRadius: 50 }}>

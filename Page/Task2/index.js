@@ -15,7 +15,7 @@ import {
     faArrowAltCircleLeft,
     faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 const Task2 = (props) => {
@@ -23,7 +23,7 @@ const Task2 = (props) => {
 
 
     const name = useSelector(state => state.AuthReducer.name);
-    const uid = useSelector(state => state.AuthReducer.uid);
+
     const time = new Date();
     const timeNow = time.toDateString();
     const id = time.getTime();
@@ -33,25 +33,19 @@ const Task2 = (props) => {
 
     const onSave = async () => {
       
-alert(uid)
         db.database().ref('task')
             .child(`${timeNow}`)
             .child(`${name}`)
             .child(`${id}`)
             .set(state)
+            .then(()=>{
+                        props.navigation.navigate('Task')
+                    })
             .catch((error) => {
                 alert(error)
             })
-
             // .then(()=>{
-            //     db.database().ref('history')
-            //     .child(`${uid}`)
-            //     .child(`${id}`)
-            //     .set(state)
-            //     .catch((error) => {
-            //         alert(error)
-            //     })
-            // })
+           
            
 
     }
@@ -113,6 +107,7 @@ alert(uid)
                                     <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 36, width: "47%", borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
                                         onChangeText={(text) => setState({ ...state, time1: text })} v
                                     />
+                                    <Text> - </Text>
                                     <TextInput style={{ borderRadius: 15, borderWidth: 1, height: 36, width: "47%", borderColor: "gray", justifyContent: "center", backgroundColor: "#dddddd" }}
                                         onChangeText={(text) => setState({ ...state, time2: text })}
                                     />

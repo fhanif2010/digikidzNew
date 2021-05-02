@@ -22,7 +22,7 @@ import { roundToNearestPixel } from "react-native/Libraries/Utilities/PixelRatio
 
 const Login = (props) => {
 
-    const auth = useSelector(state => state.AuthReducer.auth);
+ 
 
     const dispatch = useDispatch();
     const [state,setState] = useState({username:'',password:''})

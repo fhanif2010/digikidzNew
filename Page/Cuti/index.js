@@ -9,22 +9,20 @@ import {
     TouchableOpacity
 } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { 
+import {
     faArrowAltCircleLeft,
     faPlus
- } from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/free-solid-svg-icons";
 
-class Cuti extends React.Component {
-    onHome = () => {
-        this.props.navigation.navigate('Home')
+const Cuti = (props) => {
+
+    onCuti2 = () => {
+        props.navigation.navigate('Cuti2')
     }
-    onTask2 = () => {
-        this.props.navigation.navigate('Task2')
+    onCuti3 = () => {
+        props.navigation.navigate('Cuti3')
     }
-    onTask3 = () => {
-        this.props.navigation.navigate('Task3')
-    }
-    render() {
+ {
         return (
             <View style={{ flex: 1, backgroundColor: "orange" }}>
                 <KeyboardAvoidingView behavior="height">
@@ -36,40 +34,18 @@ class Cuti extends React.Component {
 
                     <View style={{ backgroundColor: "white", width: "100%", height: "100%", borderTopStartRadius: 40, borderTopEndRadius: 40 }}>
                         <View style={{ marginTop: 40, marginHorizontal: 20 }}>
-                            <View style={{ marginVertical: 6, width: "100%" }}>
-                                <TouchableOpacity onPress={() => { this.onCuti2() }}>
-                                    <View style={{ height: 50, flexDirection: "row", alignItems: "center", justifyContent: "center", backgroundColor: "#dfe4ea", borderRadius: 15 }}>
-                                        <FontAwesomeIcon icon={faPlus} size={35} />
-                                    </View>
+                            <View style={{ alignItems: "center", marginTop: 10, position: "absolute", right: 20, top: 400 }}>
+                                <TouchableOpacity style={{ width: 60, height: 60, backgroundColor: "#dfe4ea", borderRadius: 50, alignItems: "center", justifyContent: "center" }} onPress={() => { this.onCuti2() }}>
+                                    <FontAwesomeIcon icon={faPlus} size={35} />
                                 </TouchableOpacity>
                             </View>
                             <View style={{ marginVertical: 6, width: "100%" }}>
-                                <TouchableOpacity onPress={() => { this.onCuti3() }}>
+                                <TouchableOpacity onPress={() => { onCuti3() }}>
                                     <View style={{ width: "100%", height: 50, flexDirection: "row", alignItems: "center", backgroundColor: "#dfe4ea", borderRadius: 15 }}>
                                         <Text style={{ fontSize: 18 }}> 13-10-2020 </Text>
                                         <Text style={{ fontSize: 18 }}> - </Text>
                                         <Text style={{ fontSize: 18 }}> 16-10-2020, </Text>
                                         <Text style={{ fontSize: 18 }}> waiting, </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ marginVertical: 6, width: "100%" }}>
-                                <TouchableOpacity onPress={() => { this.onCuti3() }}>
-                                    <View style={{ width: "100%", height: 50, flexDirection: "row", alignItems: "center", backgroundColor: "#2ecc71", borderRadius: 15 }}>
-                                        <Text style={{ fontSize: 18 }}> 03-08-2020 </Text>
-                                        <Text style={{ fontSize: 18 }}> - </Text>
-                                        <Text style={{ fontSize: 18 }}> 04-10-2020, </Text>
-                                        <Text style={{ fontSize: 18 }}> Approv </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{ marginVertical: 6, width: "100%" }}>
-                                <TouchableOpacity onPress={() => { this.onCuti3() }}>
-                                    <View style={{ width: "100%", height: 50, flexDirection: "row", alignItems: "center", backgroundColor: "#e74c3c", borderRadius: 15 }}>
-                                        <Text style={{ fontSize: 18 }}> 20-04-2020 </Text>
-                                        <Text style={{ fontSize: 18 }}> - </Text>
-                                        <Text style={{ fontSize: 18 }}> 25-04-2020, </Text>
-                                        <Text style={{ fontSize: 18 }}> Not ap </Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
